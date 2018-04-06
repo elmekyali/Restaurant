@@ -50,4 +50,40 @@ public class RestaurantTest {
 		assertEquals("Fish for 2, Soup, Chips, Fish for 2",
 				restaurant.createOrder(tableId));
 	}
+
+	@Test
+	public void failedCreationBecauseNotEnoughPeopleForADishFor3() {
+
+		final Restaurant restaurant = new Restaurant();
+		final int tableId = restaurant.initTable(5);
+		restaurant.customerSays(tableId, "Joe: Soup");
+		restaurant.customerSays(tableId, "Jim: Same");
+		restaurant.customerSays(tableId, "Joe: Fish for 3");
+		restaurant.customerSays(tableId, "Jack: Chips");
+		restaurant.customerSays(tableId, "John: soup");
+
+		assertEquals("MISSING 1",
+				restaurant.createOrder(tableId));
+
+		restaurant.customerSays(tableId, "Alice: soup");
+
+		assertEquals("MISSING 2 for Fish for 3",
+				restaurant.createOrder(tableId));
+
+		restaurant.customerSays(tableId, "Jack: Chips for 2");
+
+		assertEquals("MISSING 2 for Fish for 3 and 1 for Chips for 2",
+				restaurant.createOrder(tableId));
+
+		restaurant.customerSays(tableId, "Jim: Chips for 2");
+
+		assertEquals("MISSING 2 for Fish for 3",
+				restaurant.createOrder(tableId));
+
+		restaurant.customerSays(tableId, "Alice: Fish for 3");
+		restaurant.customerSays(tableId, "John: Fish for 3");
+
+		assertEquals("Fish for 3, Chips for 2, Chips for 2, Fish for 3, Fish for 3",
+				restaurant.createOrder(tableId));
+	}
 }

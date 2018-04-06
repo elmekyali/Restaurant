@@ -20,6 +20,6 @@ public class Restaurant {
     }
 
     public String createOrder(int tableId) {
-        return "";
+        return tables.get(tableId).createOrder();
     }
 }

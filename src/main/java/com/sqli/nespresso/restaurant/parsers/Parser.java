@@ -1,4 +1,4 @@
-package com.sqli.nespresso.restaurant.parser;
+package com.sqli.nespresso.restaurant.parsers;
 
 import com.sqli.nespresso.restaurant.entities.CustomerOrder;
 
